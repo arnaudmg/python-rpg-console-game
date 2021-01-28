@@ -174,15 +174,18 @@ def feu_5():
   maya_6()
 
 def maya_6():
-  print ("\nApres votre arrivée les Mayas vous offre un marché : Ou bien vous restez 2 jours en échange d'un bois ou bien vous continuer votre route.")
+  global rondins
+  print ("\nApres votre arrivée les Mayas vous offre un marché : Ou bien vous restez 2 jours en échange d'un rondins de bois ou bien vous continuer votre route.")
   time.sleep(2)
   print ("""  A. Accepter le deal avec le Maya
   B. Continuer son chemin vers une direction qui nous intrigue
   I. Inventaire""")
   choice = input("> ")
   if choice in answer_A:
-    print ("\nPas dev' encore.")
-    intro() ## Dev le rondin de bois + 1 enfaite
+    print ("\nChoix difficile, mais pourquoi pas, on voit que vous voulez gagner.")
+    rondins = rondins + 1 
+    print ("\nMaintenant, il faut se remettre en route ! Et en plus, le maya vous guide..")
+    plagesud()
   elif choice in answer_B:
     plagesud()
   elif choice in answer_I:
