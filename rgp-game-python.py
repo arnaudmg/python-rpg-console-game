@@ -28,9 +28,9 @@ rondins = 0
 
 def choix_utilisateur():
     """Cette fonction permet au joueur de choisir son mouvement"""
-    joueur = input("\nPierre, Papier ou Ciseaux ? (à écrire avec sans majuscule !)\n")
+    joueur = input("\nPierre, Papier ou Ciseaux ? (à écrire sans majuscule !)\n")
     while joueur not in ["pierre","papier","ciseaux"]:
-        joueur = input("Pierre, Papier ou Ciseaux ? (à écrire avec une majuscule !)\n")
+        joueur = input("Pierre, Papier ou Ciseaux ? (à écrire sans majuscule !)\n")
     return(joueur)
 
 def choix_ordinateur():
@@ -91,7 +91,7 @@ def intro():
     intro()
 
 def foret_1():
-  print ("\nAprès quelques minutes de marche vous vous enfoncez dans la foret. Vous apercevez un sommet montagneux et entendez un cours d'eau. Ou voulez vous aller" + myPlayer.name + "?")
+  print ("\nAprès quelques minutes de marche vous vous enfoncez dans la foret. Vous apercevez un sommet montagneux et entendez un cours d'eau. Ou voulez vous aller " + myPlayer.name + "?")
   time.sleep(1)
   print ("""  A. Montagne
   B. Rivière à l'ouest""")
@@ -125,20 +125,17 @@ def jungle_4():
   rondjungle = random_number(1,3)
   rondins = rondins + rondjungle
   print ("\nBienvenue dans la jungle il commence a faire tard. Il s'avère que tu as trouvé " + str(rondjungle) + " rondins de bois, veux-tu en profiter pour aller te faire un feu ou te refugier dans une cabane un peu plus loin ?")
+  print("Vous avez " + str(rondins) + " rondins dans votre inventaire. Pour rappel, il vous en faut 7 pour pouvoir vous enfuir!")
   time.sleep(1)
   if rondins >= 7:
     win()
   print ("""  A. Cabane
-  B. Feu
-  I. Inventaire""")
+  B. Feu""")
   choice = input("> ")
   if choice in answer_A:
     cabane_5()
   elif choice in answer_B:
     feu_5()
-  elif choice in answer_I:
-    inventaire()
-    jungle_4()
   else:
     print (required)
     jungle_4()
@@ -174,7 +171,7 @@ def feu_5():
   maya_6()
 
 def maya_6():
-  global rondins
+
   print ("\nApres votre arrivée les Mayas vous offre un marché : Ou bien vous restez 2 jours en échange d'un rondins de bois ou bien vous continuer votre route.")
   time.sleep(2)
   print ("""  A. Accepter le deal avec le Maya
@@ -183,6 +180,8 @@ def maya_6():
   choice = input("> ")
   if choice in answer_A:
     print ("\nChoix difficile, mais pourquoi pas, on voit que vous voulez gagner.")
+    global rondins
+    rondins = rondins
     rondins = rondins + 1 
     print ("\nMaintenant, il faut se remettre en route ! Et en plus, le maya vous guide..")
     plagesud()
@@ -198,9 +197,8 @@ def maya_6():
 def plagesud():
   global rondins
   rondins = rondins
-  rondplage = random_number(1,3)
-  rondins = rondins + rondplage
-  print ("\nVoici quelques jours que vous êtes sur cette ile maudite. Vous découvrez une belle plage, sur laquelle vous trouvez" + str(rondplage) + " rondins de bois.")
+  rondins = rondins + 1
+  print ("\nVoici quelques jours que vous êtes sur cette ile maudite. Vous découvrez une belle plage, sur laquelle vous trouvez 1 rondin de bois.")
   print("Vous regardez le coucher de soleil malheureusement votre moment est pertubé par un bruit sourd qui vient du Nord c'est ainsi que vous decouvrez.... UN BAR ?!?!")
   if rondins >= 7:
     win()
@@ -219,7 +217,9 @@ def bar_5():
     print("Sans mémoire vous vous reveillez en haut d'une montagne . Vous etiez dans le coma quelqu'un a sans doute du vous droguer. Vous avez perdu 1 jour, mais tout va bien pour vous.")
     montagne_2()
   elif choice in answer_B:
-    print("Vous vous reveillez sur la plage de depart nu, depouillé et avec une gueule de bois monstrueuse. Vous avez perdu tout votre bois.")
+    print("Vous vous reveillez sur la plage de depart nu, depouillé et avec une gueule de bois monstrueuse. Vous perdez 2 rondins de bois. Allez, courage")
+    global rondins
+    rondins = rondins - 2
     intro()
   elif choice in answer_I:
     inventaire()
@@ -269,11 +269,14 @@ def temple_5():
   time.sleep(2)
   randPont = random_number(1,2)
   if randPont == 1:
+    print ("\nC'est passé ! Ouf !")
     maya_6()
   else:
+    print ("\nMalheuresement...tu es tombé. Allez, repars de la rivière, ça te fera du bien.")
     riviere_2()  
 
 def denys_5():
+  global rondins
   print ("\nEn te rapprochant de cette personne tu te rends compte qu'il s'agit de Deny Bruyard. Tu ne sais plus si c'est la fatigue ou la folie mais il te propose une épreuve.")
   time.sleep(1)
   print("""\nBonsoir à tous, tu vas devoir m'affronter à une épreuve appelé pierre, feuille, ciseaux. Si tu gagnes tu remportes un bois, si tu perds tu passes ton chemin. Concentre toi cela pourrait t'aider dans ta quête".""")
@@ -284,7 +287,8 @@ def denys_5():
       print("Bravo vous remportez X rondis de bois ! : AH ! bien joué je ne m'attendais pas a ce que tu gagnes. Voici un bois bon courage pour la suite. Evite de te faire manger. Vous marchez")
       plagesud()
   elif a == "pierre" and b == "papier":
-      print("Vous avez perdu, et votre sentence est irrévocable!")
+      print("Vous avez perdu, et votre sentence est irrévocable! Tu perds 1 rondin en plus...cadeau.")
+      rondins = rondins - 1
       plagesud()
   elif a == "pierre" and b == "pierre":
       print("Egalite. Alors on recommence !")
@@ -295,7 +299,8 @@ def denys_5():
       print("Bravo vous remportez X rondis de bois ! : AH ! bien joué je ne m'attendais pas a ce que tu gagnes. Voici un bois bon courage pour la suite. Evite de te faire manger. Vous marchez")
       plagesud()
   elif a == "papier" and b == "ciseaux":
-      print("Vous avez perdu, et votre sentence est irrévocable!")
+      print("Vous avez perdu, et votre sentence est irrévocable! Tu perds 1 rondin en plus...cadeau.")
+      rondins = rondins - 1
       plagesud()
   elif a == "papier" and b == "papier":
       print("Egalite. Alors on recommence !")
@@ -306,7 +311,8 @@ def denys_5():
       print("Bravo vous remportez X rondis de bois ! : AH ! bien joué je ne m'attendais pas a ce que tu gagnes. Voici un bois bon courage pour la suite. Evite de te faire manger. Vous marchez")
       plagesud()
   elif a == "ciseaux" and b == "pierre":
-      print("Vous avez perdu, et votre sentence est irrévocable!")
+      print("Vous avez perdu, et votre sentence est irrévocable! Tu perds 1 rondin en plus...cadeau.")
+      rondins = rondins - 1
       plagesud()
   elif a == "ciseaux" and b == "ciseaux":
       print("Egalite. Alors on recommence !")
@@ -365,9 +371,9 @@ def cascade_3():
 def volcan_3():
   global rondins
   rondins = rondins
-  rondvolcan = random_number(2,3)
+  rondvolcan = random_number(1,2)
   rondins = rondins + rondvolcan
-  print ("\nTu arrives au volcan, mais tu ressens quelque vibration sous tes pieds et commence à entendre le grondement de celui-ci. Tu ne sais pas d'où ça sort...mais voilà qu'arrives dans tes bras " + rondvolcan +" rondins de bois.")
+  print ("\nTu arrives au volcan, mais tu ressens quelque vibration sous tes pieds et commence à entendre le grondement de celui-ci. Tu ne sais pas d'où ça sort...mais voilà qu'arrives dans tes bras " + str(rondvolcan) +" rondins de bois.")
   if rondins >= 7:
     win()
   print("""Un énorme oiseau passe au dessus de toi tu sautes pour l'attraper et de sortir de cette galère (1 chance sur 4).""") 
@@ -425,9 +431,9 @@ def help_menu():
     print('\n##################################################')
     print('################     Help Menu     ###############')  
     print('##################################################')
-    print(' Type move or examine for each turn')      
-    print(' If moving, type up, down, left, or right')
-    print(' If examining, you may need to answer yes or no')
+    print(' Tape A, B ou C à chaque choix possible ')      
+    print(' Il te faut trouver 7 rondins et survivre à tout ce qui se mettra sur ton passage')
+    print(' Bon courage, et amuses-toi bien !')
     print('##################################################\n')
     title_screen_selections()
   
