@@ -52,11 +52,16 @@ def mort():
 def win():
   texteffect("\nFÉLICITATIONS ! Tu as été suffisamment talentueux pour t'apprivoiser les lieux, et recueuillir assez de bois pour te construire une barque et t'en aller ! Ta mission est terminée !\nRetour au menu principal dans\n3... 2... 1...\n\n\n",.02)
   title_screen()
+
+def inventaire():
+  print("Vous avez " + str(rondins) + " rondins dans votre inventaire. Pour rappel, il vous en faut 7 pour pouvoir vous enfuir!")
+
 ### Figuring out how users might respond ###
 
 answer_A = ["A", "a"]
 answer_B = ["B", "b"]
 answer_C = ["C", "c"]
+answer_I = ["I", "i"]
 yes = ["Y", "y", "yes", "oui"]
 no = ["N", "n", "no", "oui"]
 
@@ -67,14 +72,6 @@ required = ("\nOn a dit A, B ou C, pas d'autres choses !\n")
 ####################
 
 def intro():
-  # rondrand = random_number(1,10)
-  # rondins = rondrand
-  # print(rondins)
-  # global rondins
-  # rondins = rondins
-  # rondintro = random_number(1,3)
-  # rondins = rondins + rondintro
-  # print(rondins)
   print ("\n" + myPlayer.name + " vous vous reveillez sans souvenir, vous etes seul sur une plage. Voulez vous bronzer ou aller dans la foret ?\n")
   time.sleep(1)
   print ("""  A. Explorer vers le nord, et s'engonfrer dans la forêt
@@ -94,11 +91,6 @@ def intro():
     intro()
 
 def foret_1():
-  # global rondins
-  # rondins = rondins
-  # rondforet = random_number(1,3)
-  # rondins = rondins + rondforet
-  # print(rondins)
   print ("\nAprès quelques minutes de marche vous vous enfoncez dans la foret. Vous apercevez un sommet montagneux et entendez un cours d'eau. Ou voulez vous aller" + myPlayer.name + "?")
   time.sleep(1)
   print ("""  A. Montagne
@@ -137,12 +129,16 @@ def jungle_4():
   if rondins >= 7:
     win()
   print ("""  A. Cabane
-  B. Feu""")
+  B. Feu
+  I. Inventaire""")
   choice = input("> ")
   if choice in answer_A:
     cabane_5()
   elif choice in answer_B:
     feu_5()
+  elif choice in answer_I:
+    inventaire()
+    jungle_4()
   else:
     print (required)
     jungle_4()
@@ -151,7 +147,8 @@ def cabane_5():
   print ("\nTu te poses tranquillement dans la cabane MAIS ATTENTION !!!! Une tarentule arrive.  Decides-tu de l'affronter ou de prendre tes jambes a ton cou")
   time.sleep(1)
   print ("""  A. Oui
-  B. Non""")
+  B. Non
+  I. Inventaire""")
   choice = input("> ")
   if choice in answer_A:
     randAraignée = random_number(1,2)
@@ -164,6 +161,9 @@ def cabane_5():
   elif choice in answer_B:
     print("Fragile, tu vas pas survir longtemps toi... tu es retourné à la plage.")
     intro()
+  elif choice in answer_I:
+    inventaire()
+    cabane_5()
   else:
     print (required)
     cabane_5()
@@ -177,13 +177,17 @@ def maya_6():
   print ("\nApres votre arrivée les Mayas vous offre un marché : Ou bien vous restez 2 jours en échange d'un bois ou bien vous continuer votre route.")
   time.sleep(2)
   print ("""  A. Accepter le deal avec le Maya
-  B. Continuer son chemin vers une direction qui nous intrigue""")
+  B. Continuer son chemin vers une direction qui nous intrigue
+  I. Inventaire""")
   choice = input("> ")
   if choice in answer_A:
     print ("\nPas dev' encore.")
     intro() ## Dev le rondin de bois + 1 enfaite
   elif choice in answer_B:
     plagesud()
+  elif choice in answer_I:
+    inventaire()
+    maya_6()
   else:
     print (required)
     maya_6()
@@ -204,7 +208,8 @@ def bar_5():
   print ("\nVous ne vous posez pas de question, accoudé au bar. Vous choisissez de prendre de l'eau ou un martini ?")
   time.sleep(2)
   print ("""  A. Eau
-  B. Alcool""")
+  B. Alcool
+  I. Inventaire""")
   choice = input("> ")
   if choice in answer_A:
     ##rajouter rondins je pense!
@@ -213,6 +218,9 @@ def bar_5():
   elif choice in answer_B:
     print("Vous vous reveillez sur la plage de depart nu, depouillé et avec une gueule de bois monstrueuse. Vous avez perdu tout votre bois.")
     intro()
+  elif choice in answer_I:
+    inventaire()
+    bar_5()
   else:
     print (required)
     bar_5()
@@ -222,7 +230,8 @@ def ruines_5():
   time.sleep(1)
   print ("""  A. Temple
   B. Denys
-  C. Bar""")
+  C. Bar
+  I. Inventaire""")
   choice = input("> ")
   if choice in answer_A:
     temple_5()
@@ -230,6 +239,9 @@ def ruines_5():
     denys_5()
   elif choice in answer_C:
     bar_5()
+  elif choice in answer_I:
+    inventaire()
+    ruines_5()
   else:
     print (required)
     ruines_5()
@@ -303,7 +315,8 @@ def montagne_2():
   time.sleep(1)
   print ("""  A. Grotte
   B. Cascade
-  C. Volcan""")
+  C. Volcan
+  I. Inventaire""")
   choice = input("> ")
   if choice in answer_A:
     grotte_3()
@@ -311,6 +324,9 @@ def montagne_2():
     cascade_3()
   elif choice in answer_C:
     volcan_3()
+  elif choice in answer_I:
+    inventaire()
+    montagne_2()
   else:
     print (required)
     montagne_2()
@@ -322,7 +338,8 @@ def grotte_3():
   time.sleep(1)
   print ("""  A. Marécage
   B. Forêt
-  C. Jungle""")
+  C. Jungle
+  I. Inventaire""")
   choice = input("> ")
   if choice in answer_A:
     marecage_4()
@@ -330,6 +347,9 @@ def grotte_3():
     foret_1()
   elif choice in answer_C:
     jungle_4()
+  elif choice in answer_I:
+    inventaire()
+    maya_6()
   else:
     print (required)
     grotte_3()
@@ -340,10 +360,11 @@ def cascade_3():
   riviere_2()
 
 def volcan_3():
+  global rondins
   rondins = rondins
   rondvolcan = random_number(2,3)
   rondins = rondins + rondvolcan
-  print ("\nTu arrives au volcan, mais tu ressens quelque vibration sous tes pieds et commence à entendre le grondement de celui-ci. Tu ne sais pas d'où ça sort...mais voilà qu'arrives dans tes bras" + rondvolcan +" rondins de bois.")
+  print ("\nTu arrives au volcan, mais tu ressens quelque vibration sous tes pieds et commence à entendre le grondement de celui-ci. Tu ne sais pas d'où ça sort...mais voilà qu'arrives dans tes bras " + rondvolcan +" rondins de bois.")
   if rondins >= 7:
     win()
   print("""Un énorme oiseau passe au dessus de toi tu sautes pour l'attraper et de sortir de cette galère (1 chance sur 4).""") 
