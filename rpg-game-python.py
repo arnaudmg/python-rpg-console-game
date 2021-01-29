@@ -374,11 +374,11 @@ def volcan_3():
   texteffect("""Un énorme oiseau passe au dessus de toi tu sautes pour l'attraper et de sortir de cette galère. Bon, il fallait de l'aventure, alors tu 1 chance sur 4 de succomber ici.""") 
   time.sleep(1)
   rand = random_number(1,4)
-  if rand == 0 :
+  if rand == 1 :
     texteffect("Quelle idée de sauter pour attraper un oiseau tu tombes et tu finis dans la lave, t'es mort. Tu n'es pas Indiana Jones.")
     time.sleep(1)
     mort()
-  elif rand == 2 or rand == 3 or rand == 4 or rand == 5 or rand == 6:
+  elif rand == 2 or rand == 3 or rand == 4 :
     texteffect("Tu as de la chance, et tu t'en sors. On t'emmène dans un lieu...plutôt cool, du coup.")
     denys_5()
   else:
